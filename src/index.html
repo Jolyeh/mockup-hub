@@ -8,8 +8,16 @@
   <meta name="description" content="Collez une URL et générez en quelques secondes un mockup réaliste de votre site sur ordinateur, tablette et Android. Fonds, ombres et angles réglables, export PNG, WEBP et SVG en 3200 × 2000. Gratuit, sans compte, sans sauvegarde." />
   <meta name="keywords" content="mockup, générateur de mockup, mockup site web, device mockup, mockup PC tablette mobile, Android mockup, website screenshot, export PNG haute résolution" />
   <meta name="author" content="MockupHub" />
+  <meta name="application-name" content="MockupHub" />
+  <meta name="apple-mobile-web-app-title" content="MockupHub" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+  <meta name="mobile-web-app-capable" content="yes" />
   <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1" />
   <meta name="theme-color" content="#f6f2ec" />
+  <meta name="msapplication-TileColor" content="#131316" />
+  <meta name="msapplication-TileImage" content="/mstile-150x150.png" />
+  <meta name="msapplication-config" content="/browserconfig.xml" />
   <link rel="canonical" href="https://mockuphub.vercel.app/?lang=fr" />
   <link rel="alternate" hreflang="fr" href="https://mockuphub.vercel.app/?lang=fr" />
   <link rel="alternate" hreflang="en" href="https://mockuphub.vercel.app/?lang=en" />
@@ -36,9 +44,15 @@
   <meta name="twitter:image" content="https://mockuphub.vercel.app/og-cover.jpg" />
   <meta name="twitter:image:alt" content="Mockup multi-appareils généré avec MockupHub" />
 
-  <link rel="icon" href="/favicon.ico" sizes="any" />
-  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='9' fill='%23131316'/%3E%3Crect x='7' y='9' width='13' height='9' rx='2.5' fill='%23F6F2EC'/%3E%3Crect x='13' y='15' width='7' height='11' rx='2' fill='%23E2542B'/%3E%3C/svg%3E" type="image/svg+xml" />
-  <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+  <!-- Favicons & App Icons -->
+  <link rel="icon" href="/favicon.ico" sizes="16x16 32x32 48x48" />
+  <link rel="icon" href="/favicon.svg" sizes="any" type="image/svg+xml" />
+  <link rel="icon" type="image/png" sizes="96x96" href="/favicon-96x96.png" />
+  <link rel="icon" type="image/png" sizes="48x48" href="/favicon-48x48.png" />
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+  <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#e2542b" />
   <link rel="manifest" href="/manifest.webmanifest" />
 
   <script type="application/ld+json">
@@ -57,6 +71,7 @@
         "@id": "https://mockuphub.vercel.app/#app",
         "name": "MockupHub",
         "url": "https://mockuphub.vercel.app/",
+        "image": "https://mockuphub.vercel.app/icon-512.png",
         "applicationCategory": "DesignApplication",
         "operatingSystem": "Web browser",
         "browserRequirements": "Requires JavaScript",
@@ -77,7 +92,12 @@
         "@id": "https://mockuphub.vercel.app/#org",
         "name": "MockupHub",
         "url": "https://mockuphub.vercel.app/",
-        "logo": "https://mockuphub.vercel.app/icon-512.png"
+        "logo": {
+          "@type": "ImageObject",
+          "url": "https://mockuphub.vercel.app/icon-512.png",
+          "width": 512,
+          "height": 512
+        }
       }
     ]
   }
