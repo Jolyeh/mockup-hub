@@ -1,15 +1,33 @@
 {
+  "id": "/",
   "name": "MockupHub — Générateur de mockups multi-appareils",
   "short_name": "MockupHub",
   "description": "Collez une URL, générez un mockup PC, tablette et Android, exportez en haute résolution.",
   "lang": "fr",
+  "dir": "ltr",
   "start_url": "/",
   "scope": "/",
   "display": "standalone",
+  "orientation": "any",
   "background_color": "#f6f2ec",
   "theme_color": "#f6f2ec",
+  "categories": ["design", "graphics", "utilities", "productivity"],
   "icons": [
-    { "src": "/icon-192.png", "sizes": "192x192", "type": "image/png" },
-    { "src": "/icon-512.png", "sizes": "512x512", "type": "image/png" }
+    { "src": "/favicon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any" },
+    { "src": "/favicon-48x48.png", "sizes": "48x48", "type": "image/png", "purpose": "any" },
+    { "src": "/favicon-96x96.png", "sizes": "96x96", "type": "image/png", "purpose": "any" },
+    { "src": "/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "/icon-192-maskable.png", "sizes": "192x192", "type": "image/png", "purpose": "maskable" },
+    { "src": "/icon-512-maskable.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ],
+  "screenshots": [
+    {
+      "src": "/og-cover.jpg",
+      "sizes": "1200x630",
+      "type": "image/jpeg",
+      "form_factor": "wide",
+      "label": "MockupHub — Studio de mockups multi-appareils"
+    }
   ]
 }

@@ -2,9 +2,9 @@
   <a class="nav__brand" href="#" (click)="$event.preventDefault(); show('landing')" [attr.aria-label]="i18n.t('nav.home')">
     <span class="brand-mark" aria-hidden="true">
       <svg viewBox="0 0 32 32" width="30" height="30">
-        <rect x="1" y="1" width="30" height="30" rx="9" fill="currentColor" />
-        <rect x="7" y="8.5" width="14" height="9.5" rx="2.5" fill="#F6F2EC" />
-        <rect x="13.5" y="14.5" width="7.5" height="11.5" rx="2.2" fill="#E2542B" />
+        <rect x="1" y="1" width="30" height="30" rx="8.5" fill="currentColor" />
+        <rect x="6" y="8" width="16" height="10" rx="2.5" fill="#F6F2EC" />
+        <rect x="18" y="12" width="8" height="12" rx="2.2" fill="#E2542B" />
       </svg>
     </span>
     <span class="brand-name">Mockup<span>Hub</span></span>
@@ -44,7 +44,16 @@
 <footer class="footer">
   <div class="wrap footer__inner">
     <div class="footer__brand">
-      <span class="brand-name">Mockup<span>Hub</span></span>
+      <a class="nav__brand" href="#" (click)="$event.preventDefault(); show('landing')" [attr.aria-label]="i18n.t('nav.home')">
+        <span class="brand-mark" aria-hidden="true">
+          <svg viewBox="0 0 32 32" width="26" height="26">
+            <rect x="1" y="1" width="30" height="30" rx="8.5" fill="currentColor" />
+            <rect x="6" y="8" width="16" height="10" rx="2.5" fill="#F6F2EC" />
+            <rect x="18" y="12" width="8" height="12" rx="2.2" fill="#E2542B" />
+          </svg>
+        </span>
+        <span class="brand-name">Mockup<span>Hub</span></span>
+      </a>
       <p>{{ i18n.t('footer.tagline1') }}<br />{{ i18n.t('footer.tagline2') }}</p>
     </div>
     <div class="footer__cols">
