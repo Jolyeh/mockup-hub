@@ -1,0 +1,13 @@
+:host { display: block; }
+
+/* petite respiration propre à la landing */
+.hero { overflow: clip; }
+.showcase__meta strong { font-variant-numeric: tabular-nums; }
+
+.logos { padding-bottom: 8px; }
+
+@media (max-width: 780px) {
+  .showcase__meta { gap: 14px 22px; }
+  .showcase__meta-cta { width: 100%; }
+  .showcase__meta-cta .btn { width: 100%; }
+}

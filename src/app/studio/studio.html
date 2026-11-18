@@ -1,0 +1,212 @@
+<div class="studio">
+  <!-- ══════════════ panneau de gauche ══════════════ -->
+  <aside class="rail">
+    <div class="rail__head">
+      <h1>{{ i18n.t('studio.title') }}</h1>
+      <span class="mono">{{ i18n.t('studio.local') }}</span>
+    </div>
+
+    <form class="rail__group" (submit)="$event.preventDefault(); generate()">
+      <label for="studio-url">{{ i18n.t('studio.url') }}</label>
+      <div class="field field--sm">
+        <input
+          id="studio-url"
+          type="text"
+          inputmode="url"
+          spellcheck="false"
+          autocomplete="off"
+          [placeholder]="i18n.t('hero.placeholder')"
+          [value]="urlInput()"
+          (input)="onUrlInput($any($event.target).value)" />
+      </div>
+      <button class="btn btn--primary btn--full" type="submit" [class.is-loading]="captureState().phase === 'running'" [disabled]="captureState().phase === 'running'">
+        <span class="btn__label">{{ captureState().phase === 'running' ? i18n.t('studio.capturing') : i18n.t('studio.capture') }}</span>
+        <span class="spinner" aria-hidden="true"></span>
+      </button>
+      <div class="hero__demos" style="justify-content:flex-start">
+        <span>{{ i18n.t('studio.examples') }}</span>
+        @for (example of ['stripe.com', 'linear.app', 'framer.com', 'vercel.com']; track example) {
+          <button type="button" (click)="useExample('https://' + example)">{{ example }}</button>
+        }
+      </div>
+    </form>
+
+    <div class="rail__group">
+      <label>{{ i18n.t('studio.devices') }}</label>
+      <div class="chips">
+        @for (device of DEVICE_KEYS; track device) {
+          <button type="button" class="chip" [class.is-on]="isDeviceOn(device)" (click)="toggleDevice(device)">
+            {{ i18n.t('device.' + device) }}
+          </button>
+        }
+      </div>
+    </div>
+
+    <div class="rail__group">
+      <label>{{ i18n.t('studio.composition') }}</label>
+      <div class="segmented segmented--full">
+        @for (layout of layouts; track layout.key) {
+          <button type="button" class="seg" [class.is-active]="config().layout === layout.key && config().view === 'all'" (click)="setLayout(layout.key)">
+            {{ i18n.t('layout.' + layout.key) }}
+          </button>
+        }
+      </div>
+    </div>
+
+    <div class="rail__group">
+      <label>{{ i18n.t('studio.background') }}</label>
+      <div class="swatches swatches--lg">
+        @for (bg of BACKGROUNDS; track bg.key) {
+          <button
+            type="button"
+            class="swatch"
+            [class.is-active]="config().bg === bg.key"
+            [style.background]="bg.css"
+            [attr.title]="i18n.t('bg.' + bg.key)"
+            [attr.aria-label]="i18n.t('bg.' + bg.key)"
+            (click)="setBackground(bg.key)"></button>
+        }
+      </div>
+    </div>
+
+    <button type="button" class="rail__toggle" [class.is-open]="advancedOpen()" (click)="toggleAdvanced()" [attr.aria-expanded]="advancedOpen()">
+      <span>{{ i18n.t('studio.advanced') }}</span>
+      <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2.5 4.5 6 8l3.5-3.5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </button>
+
+    <div class="rail__advanced" [class.is-open]="advancedOpen()">
+      <div class="rail__group">
+        <label>{{ i18n.t('studio.shadow') }} <output>{{ shadowPct() }}%</output></label>
+        <input class="range" type="range" min="0" max="100" [value]="shadowPct()" (input)="setShadow($any($event.target).value)" />
+      </div>
+      <div class="rail__group">
+        <label>{{ i18n.t('studio.radius') }} <output>{{ config().radius }}px</output></label>
+        <input class="range" type="range" min="0" max="40" [value]="config().radius" (input)="setRadius($any($event.target).value)" />
+      </div>
+      <div class="rail__group">
+        <label>{{ i18n.t('studio.padding') }} <output>{{ config().padding }}px</output></label>
+        <input class="range" type="range" min="16" max="140" [value]="config().padding" (input)="setPadding($any($event.target).value)" />
+      </div>
+      <div class="rail__group">
+        <label>{{ i18n.t('studio.angle') }} <output>{{ config().angle }}°</output></label>
+        <input class="range" type="range" min="-12" max="12" [value]="config().angle" (input)="setAngle($any($event.target).value)" />
+      </div>
+      <div class="rail__group rail__group--toggle">
+        <label class="switch">
+          <input type="checkbox" [checked]="config().chrome" (change)="toggleChrome($any($event.target).checked)" />
+          <span class="switch__track"><span class="switch__thumb"></span></span>
+          <span>{{ i18n.t('studio.chrome') }}</span>
+        </label>
+      </div>
+    </div>
+
+    <div class="rail__actions">
+      <button class="btn btn--dark btn--full" type="button" [class.is-loading]="exporting()" (click)="exportAs('png')">
+        <span class="btn__label">{{ i18n.t('studio.downloadPng') }}</span>
+        <span class="spinner" aria-hidden="true"></span>
+      </button>
+      <div class="rail__split">
+        <button class="btn btn--ghost" type="button" (click)="exportAs('webp')">WEBP</button>
+        <button class="btn btn--ghost" type="button" (click)="exportAs('svg')">SVG</button>
+      </div>
+      <button class="btn btn--ghost btn--full" type="button" (click)="copyCss()">{{ i18n.t('studio.copyCss') }}</button>
+    </div>
+  </aside>
+
+  <!-- ══════════════ scène ══════════════ -->
+  <section class="stage-wrap">
+    <header class="stage-bar">
+      <div class="stage-bar__url">
+        <span class="pill pill--live">
+          <i></i>
+          <span>{{ captureState().phase === 'running' ? captureState().message : captureState().phase === 'error' ? i18n.t('studio.error') : hasShots() ? i18n.t('studio.ready') : i18n.t('studio.waiting') }}</span>
+        </span>
+        <span class="mono">{{ hostLabel() || '—' }}</span>
+      </div>
+      <div class="stage-bar__right">
+        <div class="segmented segmented--sm">
+          <button type="button" class="seg" [class.is-active]="config().view === 'all'" (click)="setView('all')">{{ i18n.t('studio.all') }}</button>
+          <button type="button" class="seg" [class.is-active]="config().view === 'desktop'" (click)="setView('desktop')">{{ i18n.t('studio.pc') }}</button>
+          <button type="button" class="seg" [class.is-active]="config().view === 'tablet'" (click)="setView('tablet')">{{ i18n.t('studio.tablet') }}</button>
+          <button type="button" class="seg" [class.is-active]="config().view === 'mobile'" (click)="setView('mobile')">{{ i18n.t('device.mobile') }}</button>
+        </div>
+        <span class="mono stage-bar__zoom">{{ zoom() }}</span>
+      </div>
+    </header>
+
+    <div class="stage-scroll">
+      <div class="stage" #stage [style.background]="stageStyle().background" [style.aspect-ratio]="aspect()">
+        <div class="stage__devices" #devices>
+          @for (frame of frames(); track $index) {
+            <div
+              class="dev"
+              [class.dev--monitor]="frame.kind === 'monitor'"
+              [class.dev--laptop]="frame.kind === 'laptop'"
+              [style.transform]="frameTransform(frame)"
+              [style.width.px]="frame.w"
+              [style.height.px]="frame.h"
+              [style.z-index]="frame.z"
+              [style.--bezel.px]="frame.bezel"
+              [style.--bezel-radius.px]="frame.radius * 0.9"
+              [style.--dev-shadow]="deviceShadow(frame)">
+              <div class="dev__shell">
+                @if (frame.chrome) {
+                  <div class="dev__chrome">
+                    <span class="dots"><i></i><i></i><i></i></span>
+                    <span class="urlbar">{{ hostLabel() }}</span>
+                  </div>
+                }
+                @if (frame.device === 'mobile') {
+                  <div class="dev__gesture"></div>
+                }
+                <div class="dev__screen">
+                  @if (shots()[frame.device]; as shot) {
+                    <img [src]="shot.url" [alt]="'Capture ' + i18n.t('device.' + frame.device)" crossorigin="anonymous" />
+                  } @else {
+                    <div class="dev__fallback">{{ i18n.t('studio.unavailable') }}</div>
+                  }
+                </div>
+              </div>
+            </div>
+          }
+        </div>
+
+        @if (!hasShots()) {
+          <div class="stage__empty">
+            <div class="empty__mark">
+              <svg width="40" height="40" viewBox="0 0 32 32"><rect x="1" y="1" width="30" height="30" rx="9" fill="currentColor" opacity=".08"/><rect x="7" y="8.5" width="14" height="9.5" rx="2.5" fill="currentColor" opacity=".35"/><rect x="13.5" y="14.5" width="7.5" height="11.5" rx="2.2" fill="#E2542B"/></svg>
+            </div>
+            <h2>{{ i18n.t('studio.empty.title') }}</h2>
+            <p>{{ i18n.t('studio.empty.text') }}</p>
+            <button class="btn btn--ghost" type="button" (click)="useExample('https://stripe.com')">{{ i18n.t('studio.empty.try') }}</button>
+          </div>
+        }
+
+        @if (captureState().phase === 'running') {
+          <div class="capture-bar">
+            <span class="spinner" style="display:block;border-color:rgba(19,19,22,.2);border-top-color:var(--accent)"></span>
+            <span>{{ captureState().message }}</span>
+            <span class="capture-bar__track"><i [style.width.%]="captureState().progress * 100"></i></span>
+          </div>
+        }
+      </div>
+    </div>
+
+    <footer class="stage-foot">
+      <span class="mono">{{ i18n.t('studio.exports') }}</span>
+      <div class="stage-foot__ticks">
+        @for (device of DEVICE_KEYS; track device) {
+          <span>{{ i18n.t('device.' + device) }} {{ DEVICES[device].w }}×{{ DEVICES[device].h }}</span>
+        }
+      </div>
+    </footer>
+  </section>
+</div>
+
+@if (toast(); as t) {
+  <div class="toasts" aria-live="polite">
+    <div class="toast" [class.toast--ok]="t.kind === 'ok'" [class.toast--err]="t.kind === 'err'">
+      <i></i><span>{{ t.text }}</span>
+    </div>
+  </div>
+}

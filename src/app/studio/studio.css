@@ -1,0 +1,30 @@
+:host { display: block; }
+
+/* La géométrie est liée par Angular : on laisse le CSS interpoler les changements
+   de composition (trio → duo, PC → mobile, angle, marges…) pour un morphing fluide. */
+.dev {
+  transition:
+    transform 0.72s cubic-bezier(0.22, 1, 0.36, 1),
+    width 0.72s cubic-bezier(0.22, 1, 0.36, 1),
+    height 0.72s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.dev__shell {
+  box-shadow: var(--dev-shadow);
+  transition: box-shadow 0.5s var(--ease);
+}
+
+.rail__toggle { display: flex; }
+.rail__advanced { transition: opacity 0.3s var(--ease); }
+
+.stage { transition: background 0.5s var(--ease); }
+
+.hero__demos button { font-size: 10.5px; }
+
+.note { grid-template-columns: auto 1fr; display: grid; }
+.note strong { white-space: nowrap; }
+
+@media (max-width: 780px) {
+  .stage-scroll { padding: 12px 12px 4px; }
+  .stage-foot { padding: 10px 16px 16px; }
+}

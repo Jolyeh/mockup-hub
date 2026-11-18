@@ -1,0 +1,240 @@
+<!-- ════════════════════════ HERO ════════════════════════ -->
+<section class="hero" #hero>
+  <div class="hero__aura" aria-hidden="true"></div>
+  <div class="wrap hero__inner">
+    <div class="hero__copy">
+      <p class="eyebrow">
+        <span class="dot"></span> {{ i18n.t('hero.eyebrow') }}
+      </p>
+      <h1 class="display">
+        <span class="line"><span>{{ i18n.t('hero.title1') }}</span></span>
+        <span class="line"><span>{{ i18n.t('hero.title2a') }}<em>{{ i18n.t('hero.title2b') }}</em></span></span>
+        <span class="line"><span>{{ i18n.t('hero.title3') }}</span></span>
+      </h1>
+      <p class="lede">
+        {{ i18n.t('hero.lede') }}
+      </p>
+
+      <form class="hero-form" (submit)="submit($event)" autocomplete="off">
+        <div class="field field--url">
+          <span class="field__icon" aria-hidden="true">
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="6.2" stroke="currentColor" stroke-width="1.3"/><path d="M1.8 8h12.4M8 1.8c1.7 1.8 2.5 4 2.5 6.2S9.7 12.4 8 14.2C6.3 12.4 5.5 10.2 5.5 8S6.3 3.6 8 1.8Z" stroke="currentColor" stroke-width="1.1"/></svg>
+          </span>
+          <input
+            id="hero-url"
+            type="text"
+            inputmode="url"
+            spellcheck="false"
+            [placeholder]="i18n.t('hero.placeholder')"
+            [attr.aria-label]="i18n.t('hero.urlLabel')"
+            [value]="url()"
+            (input)="onInput($any($event.target).value)" />
+        </div>
+        <button class="btn btn--primary btn--lg" type="submit" appMagnetic>
+          {{ i18n.t('hero.generate') }}
+          <svg width="15" height="15" viewBox="0 0 16 16" fill="none"><path d="M3 8h9M8.5 4l4 4-4 4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+      </form>
+
+      <div class="hero__demos">
+        <span>{{ i18n.t('hero.try') }}</span>
+        @for (example of examples; track example) {
+          <button type="button" (click)="useExample(example)">{{ example }}</button>
+        }
+      </div>
+    </div>
+  </div>
+
+  <!-- scène de démonstration -->
+  <div class="wrap">
+    <div class="showcase" #showcase>
+      <div class="showcase__label">
+        <span class="pill pill--live"><i></i> {{ i18n.t('showcase.live') }}</span>
+        <span class="mono">stripe.com</span>
+      </div>
+      <div class="showcase__stage">
+        <div class="showcase__bg" aria-hidden="true"></div>
+        <article class="frame frame--desktop" data-depth="1.2">
+          <div class="frame__body">
+            <div class="frame__chrome">
+              <span class="dots"><i></i><i></i><i></i></span>
+              <span class="urlbar">stripe.com</span>
+            </div>
+            <div class="frame__screen" style="background-image:url('demo/stripe-desktop.jpg')"></div>
+          </div>
+        </article>
+        <article class="frame frame--tablet" data-depth="2.1">
+          <div class="frame__body">
+            <div class="frame__screen" style="background-image:url('demo/stripe-tablet.jpg')"></div>
+          </div>
+        </article>
+        <article class="frame frame--phone" data-depth="2.8">
+          <div class="frame__body">
+            <div class="frame__screen" style="background-image:url('demo/stripe-mobile.jpg')"></div>
+          </div>
+        </article>
+      </div>
+      <div class="showcase__meta">
+        <div><strong>3</strong><span>{{ i18n.t('showcase.devices') }}</span></div>
+        <div><strong>0</strong><span>{{ i18n.t('showcase.kept') }}</span></div>
+        <div><strong>3200<small>px</small></strong><span>{{ i18n.t('showcase.export') }}</span></div>
+        <div class="showcase__meta-cta">
+          <button class="btn btn--dark" type="button" (click)="openStudio.emit()" appMagnetic>{{ i18n.t('showcase.open') }}</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════ LOGOS ════════════════════════ -->
+<section class="logos" [attr.aria-label]="i18n.t('logos.caption')">
+  <div class="wrap logos__row">
+    <span class="logos__cap">{{ i18n.t('logos.caption') }}</span>
+    <div class="marquee">
+      <div class="marquee__track">
+        <span>stripe.com</span><span>linear.app</span><span>framer.com</span><span>vercel.com</span><span>raycast.com</span><span>arc.net</span>
+        <span>stripe.com</span><span>linear.app</span><span>framer.com</span><span>vercel.com</span><span>raycast.com</span><span>arc.net</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════ CRAFT / BENTO ════════════════════════ -->
+<section class="section" id="features">
+  <div class="wrap">
+    <header class="section__head">
+      <p class="eyebrow" appReveal><span class="dot"></span> {{ i18n.t('craft.eyebrow') }}</p>
+      <h2 class="display display--sm" appReveal>{{ i18n.t('craft.title') }}</h2>
+      <p class="section__lede" appReveal>{{ i18n.t('craft.lede') }}</p>
+    </header>
+
+    <div class="bento">
+      <article class="card card--wide" appReveal>
+        <div class="card__text">
+          <h3>{{ i18n.t('craft.capture.title') }}</h3>
+          <p>{{ i18n.t('craft.capture.text') }}</p>
+          <ul class="ticks">
+            <li>{{ i18n.t('craft.tick1') }}</li>
+            <li>{{ i18n.t('craft.tick2') }}</li>
+            <li>{{ i18n.t('craft.tick3') }}</li>
+          </ul>
+        </div>
+        <div class="card__viz card__viz--capture">
+          <div class="mini-devices" aria-hidden="true">
+            <div class="mini mini--d"><span></span></div>
+            <div class="mini mini--t"><span></span></div>
+            <div class="mini mini--m"><span></span></div>
+          </div>
+        </div>
+      </article>
+
+      <article class="card" appReveal>
+        <h3>{{ i18n.t('craft.scene.title') }}</h3>
+        <p>{{ i18n.t('craft.scene.text') }}</p>
+        <div class="swatches">
+          @for (bg of backgrounds; track $index) {
+            <span class="swatch" [style.background]="bg" [class.is-active]="$index === 0"></span>
+          }
+        </div>
+      </article>
+
+      <article class="card" appReveal>
+        <h3>{{ i18n.t('craft.export.title') }}</h3>
+        <p>{{ i18n.t('craft.export.text') }}</p>
+        <div class="fmt">
+          <span>PNG</span><span>WEBP</span><span>SVG</span><span class="fmt--link">CSS</span>
+        </div>
+      </article>
+
+      <article class="card card--accent" appReveal>
+        <h3>{{ i18n.t('salon.title') }}</h3>
+        <p>{{ i18n.t('salon.text') }}</p>
+        <div class="salon-dots" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
+        <span class="card__foot mono">{{ i18n.t('salon.foot') }}</span>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════ WORKFLOW ════════════════════════ -->
+<section class="section section--dark" id="how">
+  <div class="wrap">
+    <header class="section__head section__head--light">
+      <p class="eyebrow" appReveal><span class="dot"></span> {{ i18n.t('workflow.eyebrow') }}</p>
+      <h2 class="display display--sm" appReveal>{{ i18n.t('workflow.title') }}</h2>
+    </header>
+
+    <ol class="steps">
+      <li class="step" appReveal>
+        <span class="step__num">01</span>
+        <h3>{{ i18n.t('step1.title') }}</h3>
+        <p>{{ i18n.t('step1.text') }}</p>
+      </li>
+      <li class="step" appReveal>
+        <span class="step__num">02</span>
+        <h3>{{ i18n.t('step2.title') }}</h3>
+        <p>{{ i18n.t('step2.text') }}</p>
+      </li>
+      <li class="step" appReveal>
+        <span class="step__num">03</span>
+        <h3>{{ i18n.t('step3.title') }}</h3>
+        <p>{{ i18n.t('step3.text') }}</p>
+      </li>
+    </ol>
+
+    <div class="studio-teaser" #teaser appReveal>
+      <div class="studio-teaser__head">
+        <div class="segmented">
+          <button type="button" class="seg" [class.is-active]="teaserView() === 'trio'" (click)="setTeaser('trio')">{{ i18n.t('layout.trio') }}</button>
+          <button type="button" class="seg" [class.is-active]="teaserView() === 'desktop'" (click)="setTeaser('desktop')">{{ i18n.t('teaser.desktop') }}</button>
+          <button type="button" class="seg" [class.is-active]="teaserView() === 'tablet'" (click)="setTeaser('tablet')">{{ i18n.t('teaser.tablet') }}</button>
+          <button type="button" class="seg" [class.is-active]="teaserView() === 'mobile'" (click)="setTeaser('mobile')">{{ i18n.t('teaser.mobile') }}</button>
+        </div>
+        <span class="mono studio-teaser__hint">{{ i18n.t('teaser.hint') }}</span>
+      </div>
+      <div class="teaser-stage">
+        <div class="t-frame t-frame--desktop"><img src="demo/stripe-desktop.jpg" [attr.alt]="i18n.t('teaser.desktop')" /></div>
+        <div class="t-frame t-frame--tablet"><img src="demo/stripe-tablet.jpg" [attr.alt]="i18n.t('teaser.tablet')" /></div>
+        <div class="t-frame t-frame--phone"><img src="demo/stripe-mobile.jpg" [attr.alt]="i18n.t('teaser.mobile')" /></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════ PRIVACY / CTA ════════════════════════ -->
+<section class="section" id="privacy">
+  <div class="wrap">
+    <header class="section__head">
+      <p class="eyebrow" appReveal><span class="dot"></span> {{ i18n.t('privacy.eyebrow') }}</p>
+      <h2 class="display display--sm" appReveal>{{ i18n.t('privacy.title1') }}<br /><em>{{ i18n.t('privacy.title2') }}</em></h2>
+      <p class="section__lede" appReveal>
+        {{ i18n.t('privacy.lede') }}
+      </p>
+    </header>
+
+    <div class="bento">
+      <article class="card" appReveal>
+        <h3>{{ i18n.t('privacy.c1t') }}</h3>
+        <p>{{ i18n.t('privacy.c1p') }}</p>
+      </article>
+      <article class="card" appReveal>
+        <h3>{{ i18n.t('privacy.c2t') }}</h3>
+        <p>{{ i18n.t('privacy.c2p') }}</p>
+      </article>
+      <article class="card" appReveal>
+        <h3>{{ i18n.t('privacy.c3t') }}</h3>
+        <p>{{ i18n.t('privacy.c3p') }}</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section class="cta">
+  <div class="wrap cta__inner" appReveal>
+    <h2 class="display display--sm">{{ i18n.t('cta.title1') }}<br /><em>{{ i18n.t('cta.title2') }}</em></h2>
+    <div class="cta__actions">
+      <button class="btn btn--primary btn--lg" type="button" (click)="openStudio.emit()" appMagnetic>{{ i18n.t('cta.primary') }}</button>
+      <button class="btn btn--ghost btn--lg" type="button" (click)="useExample('linear.app')">{{ i18n.t('cta.example') }}</button>
+    </div>
+  </div>
+</section>

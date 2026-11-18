@@ -1,0 +1,6 @@
+:host { display: block; }
+
+.nav__links a.is-current { color: var(--ink); }
+.nav__links a.is-current::after { transform: scaleX(1); }
+
+main[hidden] { display: none !important; }

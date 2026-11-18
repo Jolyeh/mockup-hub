@@ -1,0 +1,15 @@
+{
+  "name": "MockupHub — Générateur de mockups multi-appareils",
+  "short_name": "MockupHub",
+  "description": "Collez une URL, générez un mockup PC, tablette et Android, exportez en haute résolution.",
+  "lang": "fr",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#f6f2ec",
+  "theme_color": "#f6f2ec",
+  "icons": [
+    { "src": "/icon-192.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "/icon-512.png", "sizes": "512x512", "type": "image/png" }
+  ]
+}

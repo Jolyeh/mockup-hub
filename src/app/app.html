@@ -1,0 +1,74 @@
+<header class="nav" #nav [class.is-open]="menuOpen()">
+  <a class="nav__brand" href="#" (click)="$event.preventDefault(); show('landing')" [attr.aria-label]="i18n.t('nav.home')">
+    <span class="brand-mark" aria-hidden="true">
+      <svg viewBox="0 0 32 32" width="30" height="30">
+        <rect x="1" y="1" width="30" height="30" rx="9" fill="currentColor" />
+        <rect x="7" y="8.5" width="14" height="9.5" rx="2.5" fill="#F6F2EC" />
+        <rect x="13.5" y="14.5" width="7.5" height="11.5" rx="2.2" fill="#E2542B" />
+      </svg>
+    </span>
+    <span class="brand-name">Mockup<span>Hub</span></span>
+  </a>
+
+  <nav class="nav__links" [attr.aria-label]="'Navigation'">
+    <a href="#features" (click)="$event.preventDefault(); goSection('features')">{{ i18n.t('nav.craft') }}</a>
+    <a href="#how" (click)="$event.preventDefault(); goSection('how')">{{ i18n.t('nav.workflow') }}</a>
+    <a href="#privacy" (click)="$event.preventDefault(); goSection('privacy')">{{ i18n.t('nav.privacy') }}</a>
+    <a href="#" [class.is-current]="view() === 'studio'" (click)="$event.preventDefault(); show('studio')">{{ i18n.t('nav.studio') }}</a>
+    <button class="nav__cta" type="button" (click)="show('studio')">
+      {{ i18n.t('nav.openStudio') }}
+      <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M3 8h9M8.5 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </button>
+  </nav>
+
+  <div class="nav__actions">
+    <button class="lang-btn" type="button" (click)="i18n.toggle()" [attr.aria-label]="i18n.t('nav.lang')" title="FR / EN">{{ i18n.lang() === 'fr' ? 'EN' : 'FR' }}</button>
+    <button class="btn btn--primary" type="button" (click)="show('studio')" appMagnetic>
+      {{ i18n.t('nav.generate') }}
+      <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M3 8h9M8.5 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </button>
+    <button class="nav__burger" type="button" [attr.aria-expanded]="menuOpen()" [attr.aria-label]="i18n.t('nav.menu')" (click)="toggleMenu()">
+      <span></span>
+    </button>
+  </div>
+</header>
+
+<main [hidden]="view() !== 'landing'">
+  <app-landing (generate)="generateFromLanding($event)" (openStudio)="show('studio')" />
+</main>
+
+<main [hidden]="view() !== 'studio'">
+  <app-studio [request]="request()" (requestHandled)="onRequestHandled()" />
+</main>
+
+<footer class="footer">
+  <div class="wrap footer__inner">
+    <div class="footer__brand">
+      <span class="brand-name">Mockup<span>Hub</span></span>
+      <p>{{ i18n.t('footer.tagline1') }}<br />{{ i18n.t('footer.tagline2') }}</p>
+    </div>
+    <div class="footer__cols">
+      <div>
+        <h4>{{ i18n.t('footer.product') }}</h4>
+        <a href="#" (click)="$event.preventDefault(); show('studio')">{{ i18n.t('nav.studio') }}</a>
+        <a href="#features" (click)="$event.preventDefault(); goSection('features')">{{ i18n.t('nav.craft') }}</a>
+        <a href="#privacy" (click)="$event.preventDefault(); goSection('privacy')">{{ i18n.t('nav.privacy') }}</a>
+      </div>
+      <div>
+        <h4>{{ i18n.t('footer.tech') }}</h4>
+        <a href="https://angular.dev" target="_blank" rel="noopener">Angular</a>
+        <a href="https://gsap.com" target="_blank" rel="noopener">GSAP</a>
+        <a href="https://image.thum.io" target="_blank" rel="noopener">{{ i18n.t('footer.render') }}</a>
+      </div>
+      <div>
+        <h4>{{ i18n.t('footer.shortcuts') }}</h4>
+        <a href="#" (click)="$event.preventDefault(); show('studio')">{{ i18n.t('nav.openStudio') }}</a>
+        <a href="#" (click)="$event.preventDefault(); show('landing')">{{ i18n.t('footer.backHome') }}</a>
+      </div>
+    </div>
+  </div>
+  <div class="wrap footer__legal">
+    <span>© 2026 MockupHub</span>
+    <span class="mono">{{ i18n.t('footer.edition') }}</span>
+  </div>
+</footer>
